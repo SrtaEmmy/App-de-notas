@@ -1,0 +1,71 @@
+<div id="notes-container">
+  <div class="container">
+  <div class="row">
+
+{{#if favoriteNote}}
+  {{#each favoriteNote}}
+
+      <div class="col-md-3">
+        <div class="card mt-4">
+          <form action="/delete/{{_id}}/favorites?_method=delete" method="post">
+          <input type="hidden" name="_method" value="delete">                      {{! delete button }}
+            <h5 class="card-header d-flex justify-content-between">{{title}} <button class="border-0 bg-transparent" type="submit"> <i class="fa-solid fa-heart" style="color: #d41c25;"></i> </button></h5>
+          </form>
+
+          <div class="card-body">
+            <p class="card-text">{{note}}</p>
+          </div>
+            <button class="btn btn-info m-1 btn-sm" data-bs-toggle="modal" data-bs-target="#updateModal-{{_id}}"data-bs-whatever="@mdo"> <i class="fa-solid fa-pen-to-square"></i> </button>
+        </div>
+      </div>
+
+        {{!-- modal update note --}}
+<div class="modal fade" id="updateModal-{{_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update note</h1>
+      </div>
+      <div class="modal-body">
+
+        <form action="/update/{{_id}}/favorites?_method=put" method="post">
+        <input type="hidden" name="_method" value="put">
+          <div class="mb-3">
+            <input type="text" class="form-control"  name="title" value="{{title}}"/>
+          </div>
+
+          <div class="mb-3">
+            <textarea class="form-control" name="note">{{note}}</textarea>
+          </div>
+
+          <button type="submit" style="width: 100%;" class="btn btn-primary btn-sm">save</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{/each}}
+
+{{else}}
+
+{{!-- case doesn't exist any note --}}
+<div class="row justify-content-center">
+        <div class="col-md-3">
+        <div class="card mt-4 mx-auto">
+          <div class="card-header">Favorites  <i class="fa-solid fa-heart" style="color: #d41c25;"></i> </div>
+          <div class="card-body">
+            <h5 class="card-text text-center">There are not favorites notes</h5>
+          </div>
+        </div>
+      </div>
+</div>
+
+{{/if}}
+
+</div>
+</div>
+</div>

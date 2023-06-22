@@ -1,0 +1,112 @@
+<div id="notes-container">  {{!-- don't let duplicate button "Add note" --}}
+
+{{!-- modal Add note --}}
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New note</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form action="/add-note" method="post">
+          <div class="mb-3">
+            <input autofocus placeholder="title" type="text" class="form-control" name="title"/>
+          </div>
+
+          <div class="mb-3">
+            <textarea placeholder="note" class="form-control" name="note"></textarea>
+          </div>
+
+          <button type="submit" style="width: 100%;" class="btn btn-primary btn-sm">Add</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{! for each note create a card }}
+<div class="container">
+
+{{#if notes}}
+<button type="button" class="btn btn-primary m-1 col-md-3" data-bs-toggle="modal" data-bs-target="#addModal" data-bs-whatever="@mdo">Add note</button>
+
+<div class="container">
+  <div class="row">
+    {{#each notes}}
+
+      {{!-- card --}}
+      <div class="col-md-3">
+        <div class="card mt-4">
+          <form action="/delete/{{_id}}/notes?_method=delete" method="post">
+          <input type="hidden" name="_method" value="delete">                      {{! delete button }}
+            <h5 class="card-header d-flex justify-content-between">{{title}}  <button type="submit" class="border-0 bg-transparent"> <i class="fa-sharp fa-solid fa-trash"></i> </button></h5>
+            <a href="/favorites/{{_id}}" class="m-1"> {{#if favorite}} <i class="fa-solid fa-heart" style="color: #d41c25;"></i> {{else}} <i class="fa-sharp fa-regular fa-heart" style="color: #1d2f4e;"></i> {{/if}}</a>
+          </form>
+
+          <div class="card-body">
+            <p class="card-text">{{note}}</p>
+
+          </div>
+            <button class="btn btn-info m-1 btn-sm" data-bs-toggle="modal" data-bs-target="#updateModal-{{_id}}"data-bs-whatever="@mdo"> <i class="fa-solid fa-pen-to-square"></i> </button>
+        </div>
+      </div>
+
+          {{!-- modal update note --}}
+<div class="modal fade" id="updateModal-{{_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update note</h1>
+      </div>
+      <div class="modal-body">
+
+        <form action="/update/{{_id}}/notes?_method=put" method="post">
+        <input type="hidden" name="_method" value="put">
+          <div class="mb-3">
+            <input type="text" class="form-control"  name="title" value="{{title}}"/>
+          </div>
+
+          <div class="mb-3">
+            <textarea class="form-control" name="note">{{note}}</textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">save</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    {{/each}}
+
+</div>
+
+{{else}}
+{{!-- case doesn't exist any note --}}
+<div class="row justify-content-center">
+        <div class="col-md-3">
+        <div class="card mt-4 mx-auto">
+          <div class="card-body">
+            <h5 class="card-text text-center">There are not notes yet</h5>
+          </div>
+            <button type="button" class="btn btn-success btn-sm m-1" data-bs-toggle="modal" data-bs-target="#addModal" data-bs-whatever="@mdo">Create one!</button>
+        </div>
+      </div>
+</div>
+
+
+{{/if}}
+
+  </div>
+</div>
+
+</div>

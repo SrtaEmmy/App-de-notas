@@ -1,0 +1,75 @@
+<div id="notes-container">
+  
+<div class="container">
+{{#if notes}}
+    <button id="delete-all-button" type="submit" class="btn btn-danger m-1 col-12 col-md-3" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-whatever="@mdo">Delete All</button>
+
+<div class="container">
+  <div class="row">
+      {{#each notes}}
+
+
+          <div class="col-md-3">
+        <div class="card mt-4">
+          <form action="/deleteTrash/{{_id}}?_method=delete" method="post">
+          <input type="hidden" name="_method" value="delete">                      {{! delete button }}
+            <h5 class="card-header d-flex justify-content-between">{{title}} <button class="border-0 bg-transparent" type="submit"> <i class="fa-sharp fa-solid fa-trash"></i> </button></h5>
+          </form>
+
+          <div class="card-body">
+            <p class="card-text">{{note}}</p>
+            <form action="/restore/{{_id}}" method="post">
+          </div>
+              <button class="btn btn-warning m-1 btn-sm">Restore</button>
+            </form>
+        </div>
+      </div>
+
+
+{{/each}}
+  </div>
+</div>
+{{else}}
+
+{{!-- case doesn't exist any note --}}
+<div class="row justify-content-center">
+        <div class="col-md-3">
+        <div class="card mt-4 mx-auto">
+          <div class="card-header">Trash <i class="fa-sharp fa-solid fa-trash"></i> </div>
+          <div class="card-body">
+            <h5 class="card-text text-center">Trash is empty</h5>
+          </div>
+        </div>
+      </div>
+</div>
+
+{{/if}}
+</div>
+{{!-- modal-alert before delete all --}}
+<div class="modal fade" id="deleteModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Alert</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete all notes?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+      <form action="/delete-all-trash?_method=delete" method="post">
+      <input type="hidden" name="_method" value="delete">
+        <button  id="confirm-delete-all-button" type="submit" class="btn btn-primary">Delete</button>
+      </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</div>

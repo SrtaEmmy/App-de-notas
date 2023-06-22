@@ -1,0 +1,64 @@
+:root {
+  --background-color: #f2f3f4;
+  --text-color: black;
+  --note-background-color: white;
+  --note-text-color: black;
+  --note-border-color: #ccc;
+  --note-divider-color: #ccc;
+  --hr-color: black ;
+  --navbar-background-color: #f8f9fa;
+  --navbar-text-color: black;
+  --navbar-toggler-icon-color: #212529;
+  --note-box-shadow: -5px -5px 8px #ccc;
+  --modal-background-color: white;
+  --modal-border-color: #dee2e6;
+  --modal-input-background-color: white;
+  --modal-input-placeholder-color: #6c757d;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.card {
+  background-color: var(--note-background-color);
+  box-shadow: var(--note-box-shadow);
+  color: var(--note-text-color);
+  border-color: var(--note-border-color);
+}
+
+.card-header {
+  border-bottom-color: var(--note-divider-color);
+}
+
+hr {
+  border-top-color: var(--hr-color);
+}
+
+.custom-navbar {
+  background-color: var(--navbar-background-color) !important;
+}
+
+.custom-navbar .nav-link,
+.custom-navbar .navbar-brand,
+.custom-navbar .dropdown-toggle {
+  color: var(--navbar-text-color) !important;
+}
+
+
+
+.modal-content {
+  background-color: var(--modal-background-color);
+  border-color: var(--modal-border-color);
+}
+
+.modal-body input,
+.modal-body textarea {
+  background-color: var(--modal-input-background-color);
+}
+
+.modal-body input::placeholder,
+.modal-body textarea::placeholder {
+  color: var(--modal-input-placeholder-color);
+}
